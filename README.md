@@ -44,21 +44,41 @@ An end-to-end **Fake News Detection** web application built with **Django**, **S
 ## 📂 Project Structure
 
 ```text
-fake-news-detection-django/
+FakeNewsDetection/
 │
 ├── core/
-├── app/
-├── static/
-├── templates/
-├── media/
-├── model/
-│   ├── model.pkl
-│   └── vectorizer.pkl
 │
+├── detector/
+│   ├── migrations/
+│   ├── templates/
+│   │      home.html
+│   │      result.html
+│   │      history.html
+│   │      about.html
+│   │
+│   ├── static/
+│   │      css/
+│   │      images/
+│   │
+│   ├── ml/
+│   │      model.pkl
+│   │      vectorizer.pkl
+│   │
+│   ├── models.py
+│   ├── views.py
+│   ├── urls.py
+│   ├── forms.py
+│   └── utils.py
+│
+├── dataset/
+│      Fake.csv
+│      True.csv
+│
+├── train_model.py
 ├── requirements.txt
 ├── manage.py
-├── README.md
-└── .gitignore
+└── README.md
+
 ```
 
 ---
