@@ -1,0 +1,49 @@
+{% extends 'detector/base.html' %}
+
+{% block title %}About - TruthGuard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="gradient-text">About TruthGuard</h1>
+    <p>Understanding the technology behind our Fake News Detection.</p>
+</div>
+
+<div class="about-container">
+    <div class="glass-card about-card">
+        <h2>How It Works</h2>
+        <p>TruthGuard uses advanced Natural Language Processing (NLP) and Machine Learning techniques to analyze the linguistic patterns of news statements.</p>
+        
+        <div class="pipeline-visual">
+            <div class="pipeline-step">
+                <div class="step-icon">📝</div>
+                <div class="step-title">Text Input</div>
+                <div class="step-desc">User submits a news headline or statement.</div>
+            </div>
+            <div class="pipeline-arrow">➔</div>
+            <div class="pipeline-step">
+                <div class="step-icon">🧹</div>
+                <div class="step-title">Preprocessing</div>
+                <div class="step-desc">Cleaning, tokenizing, and removing noise.</div>
+            </div>
+            <div class="pipeline-arrow">➔</div>
+            <div class="pipeline-step">
+                <div class="step-icon">🔢</div>
+                <div class="step-title">TF-IDF Vectorization</div>
+                <div class="step-desc">Converting text into numerical features.</div>
+            </div>
+            <div class="pipeline-arrow">➔</div>
+            <div class="pipeline-step">
+                <div class="step-icon">🤖</div>
+                <div class="step-title">ML Prediction</div>
+                <div class="step-desc">Classification using trained models.</div>
+            </div>
+        </div>
+
+        <h2>Our Models</h2>
+        <p>During training, we evaluated multiple classification algorithms including Logistic Regression, Multinomial Naive Bayes, Linear SVM, and Passive Aggressive Classifier. The best performing model is deployed here.</p>
+        
+        <h2>Limitations</h2>
+        <p>While our models achieve high accuracy on the training dataset, AI is not perfect. Sarcasm, satire, and highly nuanced context can sometimes lead to incorrect predictions. Always cross-reference important news with verified sources.</p>
+    </div>
+</div>
+{% endblock %}

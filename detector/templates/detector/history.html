@@ -1,0 +1,86 @@
+{% extends 'detector/base.html' %}
+
+{% block title %}History - TruthGuard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="gradient-text">Analysis History</h1>
+    <p>Review past predictions made by the community.</p>
+</div>
+
+<div class="glass-card filter-card">
+    <form method="get" class="filter-form">
+        <input type="text" name="q" value="{{ query }}" placeholder="Search statements..." class="search-input">
+        <select name="label" class="filter-select">
+            <option value="">All Results</option>
+            <option value="REAL" {% if label_filter == 'REAL' %}selected{% endif %}>Real Only</option>
+            <option value="FAKE" {% if label_filter == 'FAKE' %}selected{% endif %}>Fake Only</option>
+        </select>
+        <button type="submit" class="btn-secondary">Filter</button>
+    </form>
+</div>
+
+<div class="glass-card history-table-wrapper">
+    {% if page_obj %}
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Statement</th>
+                    <th>Result</th>
+                    <th>Confidence</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in page_obj %}
+                <tr>
+                    <td class="date-col">{{ item.created_at|date:"M d, Y H:i" }}</td>
+                    <td class="statement-col">
+                        <div class="truncate-text">{{ item.statement }}</div>
+                    </td>
+                    <td>
+                        <span class="status-badge {% if item.is_fake %}badge-fake-sm{% else %}badge-real-sm{% endif %}">
+                            {{ item.label }}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="mini-progress">
+                            <div class="mini-fill {% if item.is_fake %}fill-fake{% else %}fill-real{% endif %}" 
+                                 style="width: {{ item.confidence_percent }};"></div>
+                        </div>
+                        <span class="mini-conf-text">{{ item.confidence_percent }}</span>
+                    </td>
+                    <td>
+                        <a href="{% url 'result' item.pk %}" class="btn-link">View</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <!-- Pagination -->
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1{% if query %}&q={{ query }}{% endif %}{% if label_filter %}&label={{ label_filter }}{% endif %}" class="page-link">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}{% if label_filter %}&label={{ label_filter }}{% endif %}" class="page-link">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}{% if label_filter %}&label={{ label_filter }}{% endif %}" class="page-link">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}{% if label_filter %}&label={{ label_filter }}{% endif %}" class="page-link">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <p>No analysis history found.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

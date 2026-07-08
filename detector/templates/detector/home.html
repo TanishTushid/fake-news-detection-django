@@ -1,0 +1,41 @@
+{% extends 'detector/base.html' %}
+
+{% block title %}Analyze - TruthGuard{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <h1 class="gradient-text">Detect Fake News Instantly</h1>
+    <p class="hero-subtitle">Our advanced ML models analyze text patterns, context, and linguistics to determine authenticity.</p>
+</div>
+
+<div class="glass-card analyzer-card">
+    <form action="{% url 'predict' %}" method="post" class="analyzer-form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.statement }}
+            {{ form.statement.errors }}
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn-primary animate-pulse">
+                <span class="btn-icon">🔍</span> Analyze Statement
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="stats-grid">
+    <div class="glass-card stat-card">
+        <div class="stat-value">{{ total_checked }}</div>
+        <div class="stat-label">Total Analyzed</div>
+    </div>
+    <div class="glass-card stat-card fake-stat">
+        <div class="stat-value">{{ total_fake }}</div>
+        <div class="stat-label">Fake Detected</div>
+    </div>
+    <div class="glass-card stat-card real-stat">
+        <div class="stat-value">{{ total_real }}</div>
+        <div class="stat-label">Real Verified</div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,124 @@
+FakeNewsDetection/
+│
+├── core/
+│
+├── detector/
+│   ├── migrations/
+│   ├── templates/
+│   │      home.html
+│   │      result.html
+│   │      history.html
+│   │      about.html
+│   │
+│   ├── static/
+│   │      css/
+│   │      images/
+│   │
+│   ├── ml/
+│   │      model.pkl
+│   │      vectorizer.pkl
+│   │
+│   ├── models.py
+│   ├── views.py
+│   ├── urls.py
+│   ├── forms.py
+│   └── utils.py
+│
+├── dataset/
+│      Fake.csv
+│      True.csv
+│
+├── train_model.py
+├── requirements.txt
+├── manage.py
+└── README.md
+
+
+
+
+
+
+                  FAKE NEWS DETECTION PIPELINE
+
+                     Dataset Collection
+                             │
+                             ▼
+                  Data Understanding (EDA)
+                             │
+                             ▼
+                    Data Cleaning
+        (Missing Values, Duplicates, Noise)
+                             │
+                             ▼
+                  Text Preprocessing
+       ┌──────────────────────────────────────┐
+       │ Lowercase                           │
+       │ Remove Punctuation                  │
+       │ Remove Numbers                      │
+       │ Remove URLs                         │
+       │ Remove HTML Tags                    │
+       │ Remove Stopwords                    │
+       │ Lemmatization / Stemming            │
+       └──────────────────────────────────────┘
+                             │
+                             ▼
+                  Feature Engineering
+             TF-IDF / Count Vectorizer
+                             │
+                             ▼
+                  Train-Test Split
+                             │
+                             ▼
+              Train Multiple ML Models
+       ┌──────────────────────────────────────┐
+       │ Logistic Regression                 │
+       │ Multinomial Naive Bayes             │
+       │ Linear SVM                          │
+       │ Passive Aggressive Classifier       │
+       └──────────────────────────────────────┘
+                             │
+                             ▼
+                  Model Evaluation
+       Accuracy
+       Precision
+       Recall
+       F1 Score
+       ROC-AUC (optional)
+       Confusion Matrix
+                             │
+                             ▼
+               Hyperparameter Tuning
+          (GridSearchCV / RandomizedSearchCV)
+                             │
+                             ▼
+                  Select Best Model
+                             │
+                             ▼
+              Save Model & Vectorizer
+        model.pkl
+        vectorizer.pkl
+                             │
+                             ▼
+              Django Integration
+        Load Model + Vectorizer
+                             │
+                             ▼
+                 User Inputs News
+                             │
+                             ▼
+            Same Text Preprocessing
+                             │
+                             ▼
+              TF-IDF Transformation
+                             │
+                             ▼
+                    Model Prediction
+                             │
+                             ▼
+        Fake / Real + Confidence Score
+                             │
+                             ▼
+          Save Prediction to Database
+                             │
+                             ▼
+               Dashboard & Analytics

@@ -1,0 +1,44 @@
+{% extends 'detector/base.html' %}
+
+{% block title %}Result - TruthGuard{% endblock %}
+
+{% block content %}
+<div class="result-container">
+    <div class="glass-card result-card {% if prediction.is_fake %}is-fake{% else %}is-real{% endif %}">
+        <div class="result-header">
+            <h2>Analysis Complete</h2>
+            <div class="result-badge {% if prediction.is_fake %}badge-fake{% else %}badge-real{% endif %}">
+                {% if prediction.is_fake %}
+                    ⚠️ LIKELY FAKE
+                {% else %}
+                    ✅ LIKELY REAL
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="statement-box">
+            <h3>Analyzed Statement:</h3>
+            <p>"{{ prediction.statement }}"</p>
+        </div>
+
+        <div class="confidence-section">
+            <div class="confidence-header">
+                <h3>Confidence Score</h3>
+                <span class="confidence-value">{{ confidence_pct }}%</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill {% if prediction.is_fake %}fill-fake{% else %}fill-real{% endif %}" 
+                     style="width: {{ confidence_pct }}%;"></div>
+            </div>
+            <p class="confidence-help">
+                Our model is {{ confidence_pct }}% confident that this statement is {{ prediction.label|lower }}.
+            </p>
+        </div>
+        
+        <div class="result-actions">
+            <a href="{% url 'home' %}" class="btn-secondary">Analyze Another</a>
+            <a href="{% url 'history' %}" class="btn-outline">View History</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
